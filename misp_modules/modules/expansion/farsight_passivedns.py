@@ -1,8 +1,15 @@
 import dnsdb2
 import json
+import logging
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject
+
+logging.basicConfig(filename = "Sample.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S)
+log = logging.getLogger('sampleerrors')
+log.setLevel(logging.DEBUG)
+log.debug("This is sample)
+
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
@@ -118,6 +125,7 @@ class FarsightDnsdbParser():
 
     def get_results(self):
         event = json.loads(self.misp_event.to_json())
+        log.debug(event)
         results = {key: event[key] for key in ('Attribute', 'Object')}
         return {'results': results}
 
