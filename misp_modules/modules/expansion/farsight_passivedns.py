@@ -8,7 +8,7 @@ from pymisp import MISPEvent, MISPObject
 logging.basicConfig(filename = "Sample.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S)
 log = logging.getLogger('sampleerrors')
 log.setLevel(logging.DEBUG)
-log.debug("This is sample)
+log.debug("This is sample")
 
 
 misperrors = {'error': 'Error'}
