@@ -5,7 +5,7 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject
 
-logging.basicConfig(filename = "Sample.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S)
+logging.basicConfig(filename = "/usr/local/src/misp-modules/misp_modules/modules/expansion/Sample1.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S)
 log = logging.getLogger('sampleerrors')
 log.setLevel(logging.DEBUG)
 log.debug("This is sample")
