@@ -10,6 +10,7 @@ log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
 log.debug("This is sample")
 log.debug("Testing")
+log.debug("Test")
 
 
 misperrors = {'error': 'Error'}
@@ -116,7 +117,7 @@ class FarsightDnsdbParser():
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
                 #passivedns_object.distribution = '0'
-                passivedns_object.distribution = dis
+                passivedns_object.distribution = fs_distribution
                 log.debug(passivedns_object.distribution)
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -244,6 +245,7 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 def introspection():
     log.debug("Archith3")
+    log.debug(passivedns_object.distribution)
     log.debug(event)
     log.debug("ArchithS")
     return mispattributes
