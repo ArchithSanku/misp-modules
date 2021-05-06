@@ -3,7 +3,7 @@ import json
 import logging
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
-from pymisp import MISPEvent, MISPObject
+from pymisp import MISPEvent, MISPObject, PyMISP
 
 misp_url = 'https://18.116.32.112/'
 misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
