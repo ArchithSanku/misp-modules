@@ -104,19 +104,15 @@ class FarsightDnsdbParser():
             'zone_time_first': {'type': 'datetime', 'object_relation': 'zone_time_first'},
             'zone_time_last': {'type': 'datetime', 'object_relation': 'zone_time_last'}
         }
-        log.debug("Archith4")
         self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
         
 
     def parse_passivedns_results(self, query_response):
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
-            log.debug("Archith400")
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
                 passivedns_object.distribution = '0'
-                log.debug("Archith5")
-                log.debug(passivedns_object)
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
@@ -131,10 +127,8 @@ class FarsightDnsdbParser():
 
     def get_results(self):
         event = json.loads(self.misp_event.to_json())
-        log.debug("Archith")
-        log.debug(event)
         results = {key: event[key] for key in ('Attribute', 'Object')}
-        log.debug(event)
+        log.debug(results)
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
@@ -192,7 +186,6 @@ def parse_input(attribute, config):
 
 def parse_timestamp(str_date):
     datetime_date = datetime.strptime(str_date, '%Y-%m-%dT%H:%M:%S.%f%z')
-    log.debug("Archith2")
     return str(int(datetime_date.timestamp()))
 
 
@@ -245,7 +238,6 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 def introspection():
     log.debug("Archith3")
-    log.debug(event)
     log.debug("ArchithS")
     return mispattributes
 
