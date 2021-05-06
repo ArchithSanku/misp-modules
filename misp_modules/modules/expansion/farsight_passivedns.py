@@ -14,6 +14,7 @@ log.debug("Testing")
 
 misperrors = {'error': 'Error'}
 Farsight_Shared_Group = "88a55e33-9d40-4af0-8985-d91863d42b4b"
+log.debug(Farsight_Shared_Group)
 fs_distribution = '0' 
 standard_query_input = [
     'hostname',
