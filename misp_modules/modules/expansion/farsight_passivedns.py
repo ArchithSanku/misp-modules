@@ -8,9 +8,7 @@ from pymisp import MISPEvent, MISPObject
 logging.basicConfig(filename = "/home/ubuntu/sam2.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
-log.debug("This is sample")
-log.debug("Testing")
-log.debug("Test")
+log.debug("Ready")
 
 
 misperrors = {'error': 'Error'}
@@ -95,6 +93,8 @@ class FarsightDnsdbParser():
     def __init__(self, attribute):
         self.attribute = attribute
         self.misp_event = MISPEvent()
+        log.debug(attribute)
+        log.debug(MISPEvent)
         self.misp_event.add_attribute(**attribute)
         self.passivedns_mapping = {
             'bailiwick': {'type': 'text', 'object_relation': 'bailiwick'},
@@ -245,8 +245,8 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 def introspection():
     log.debug("Archith3")
-    log.debug(passivedns_object.distribution)
-    log.debug(event)
+    log.debug(passivedns_object.distribution())
+    
     log.debug("ArchithS")
     return mispattributes
 
