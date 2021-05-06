@@ -6,16 +6,14 @@ from datetime import datetime
 from pymisp import MISPEvent, MISPObject, PyMISP
 
 misp_url = 'https://18.116.32.112/'
-misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
+misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR' # The MISP auth key can be found on the MISP web interface under the automation section
 misp_verifycert = False
 farsight_sharing_group = '88a55e33-9d40-4af0-8985-d91863d42b4b'
 logging.basicConfig(filename = "/home/ubuntu/final.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('Testtt')
+log = logging.getLogger('TEST')
 log.setLevel(logging.DEBUG)
 log.debug("Started Debugging...")
 fs_distribution = '0' 
-
-
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
@@ -98,7 +96,7 @@ class FarsightDnsdbParser():
         self.misp_event = MISPEvent()
         self.misp_event.add_attribute(**attribute)
         self.passivedns_mapping = {
-            'bailiwick': {'type': 'domain', 'object_relation': 'bailiwick'},
+            'bailiwick': {'type': 'text', 'object_relation': 'bailiwick'},
             'count': {'type': 'counter', 'object_relation': 'count'},
             'raw_rdata': {'type': 'text', 'object_relation': 'raw_rdata'},
             'rdata': {'type': 'text', 'object_relation': 'rdata'},
@@ -168,8 +166,6 @@ def handler(q=False):
         response = to_query(client, *args)
     except dnsdb2.DnsdbException as e:
         return {'error': e.__str__()}
-    except dnsdb2.exceptions.QueryError:
-        return {'error': 'Communication error occurs while executing a query, or the server reports an error due to invalid arguments.'}
     if not response:
         return {'error': f"Empty results on Farsight DNSDB for the {TYPE_TO_FEATURE[attribute['type']]}: {attribute['value']}."}
     parser = FarsightDnsdbParser(attribute)
