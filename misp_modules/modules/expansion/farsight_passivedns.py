@@ -244,6 +244,8 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 def introspection():
     log.debug("Archith3")
+    log.debug(event)
+    log.debug("ArchithS")
     return mispattributes
 
 
