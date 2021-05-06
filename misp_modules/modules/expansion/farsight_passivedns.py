@@ -5,7 +5,7 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject
 
-logging.basicConfig(filename = "/home/ubuntu/sam2.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+logging.basicConfig(filename = "/home/ubuntu/debug.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
 log.debug("Started Debugging...")
