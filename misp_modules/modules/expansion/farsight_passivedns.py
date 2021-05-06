@@ -8,7 +8,7 @@ from pymisp import MISPEvent, MISPObject
 logging.basicConfig(filename = "/home/ubuntu/sam2.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
-log.debug("Ready")
+log.debug("Ready!!")
 
 
 misperrors = {'error': 'Error'}
@@ -230,22 +230,25 @@ def lookup_name(client, lookup_args, name, flex):
         response['rdata'] = rdata_response
     if flex:
         response.update(flex_queries(client, lookup_args, name))
+    log.debug(response)
     return response
 
 
 def lookup_ip(client, lookup_args, ip, flex):
     response = {}
     res = list(client.lookup_rdata_ip(ip, **lookup_args))
+    log.debug(res)
     if res:
         response['rdata'] = res
     if flex:
         response.update(flex_queries(client, lookup_args, ip))
+    log.debug(res)
     return response
 
 
 def introspection():
-    log.debug("Archith3")
-    log.debug(passivedns_object.distribution())
+    log.debug("Archith33")
+#     log.debug(passivedns_object.distribution)
     
     log.debug("ArchithS")
     return mispattributes
