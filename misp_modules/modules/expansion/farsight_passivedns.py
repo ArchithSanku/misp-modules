@@ -106,9 +106,13 @@ class FarsightDnsdbParser():
         self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
 
     def parse_passivedns_results(self, query_response):
+        
         event = json.loads(self.misp_event.to_json())
         log.debug(str(event))
         log.debug('text')
+        log.debug(event['uuid'])
+        event_details = self.get_event(event['uuid'])
+        log.debug(event_details)
         
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
