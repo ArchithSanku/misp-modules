@@ -124,7 +124,7 @@ class FarsightDnsdbParser():
                     passivedns_object.last_seen = result['time_last']
                 passivedns_object.add_reference(self.attribute['uuid'], 'related-to')
                 print('World')
-                log.debug(passivedns_object.add_reference(self.attribute['uuid'])
+                log.debug(passivedns_object.add_reference(self.attribute['uuid']))
                 self.misp_event.add_object(passivedns_object)
 
     def get_results(self):
