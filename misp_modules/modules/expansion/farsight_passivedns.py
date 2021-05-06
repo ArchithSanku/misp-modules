@@ -8,13 +8,10 @@ from pymisp import MISPEvent, MISPObject
 logging.basicConfig(filename = "/home/ubuntu/sam2.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
-log.debug("Ready!!")
+log.debug("Started Debugging!!")
 
 
 misperrors = {'error': 'Error'}
-Farsight_Shared_Group = "88a55e33-9d40-4af0-8985-d91863d42b4b"
-log.debug(Farsight_Shared_Group)
-fs_distribution = '0' 
 standard_query_input = [
     'hostname',
     'domain',
@@ -93,11 +90,9 @@ class FarsightDnsdbParser():
     def __init__(self, attribute):
         self.attribute = attribute
         self.misp_event = MISPEvent()
-        log.debug(attribute)
-        log.debug(MISPEvent)
         self.misp_event.add_attribute(**attribute)
         self.passivedns_mapping = {
-            'bailiwick': {'type': 'text', 'object_relation': 'bailiwick'},
+            'bailiwick': {'type': 'domain', 'object_relation': 'bailiwick'},
             'count': {'type': 'counter', 'object_relation': 'count'},
             'raw_rdata': {'type': 'text', 'object_relation': 'raw_rdata'},
             'rdata': {'type': 'text', 'object_relation': 'rdata'},
@@ -109,16 +104,14 @@ class FarsightDnsdbParser():
             'zone_time_last': {'type': 'datetime', 'object_relation': 'zone_time_last'}
         }
         self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
-        
 
     def parse_passivedns_results(self, query_response):
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                #passivedns_object.distribution = '0'
-                passivedns_object.distribution = fs_distribution
-                log.debug(passivedns_object.distribution)
+                log.debug('AAA)
+                passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
@@ -134,14 +127,11 @@ class FarsightDnsdbParser():
     def get_results(self):
         event = json.loads(self.misp_event.to_json())
         results = {key: event[key] for key in ('Attribute', 'Object')}
-        log.debug(results)
-        log.debug(get_results.event)
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
-        attribute = {'value': value, 'comment': comment, 'distribution': fs_distribution}
+        attribute = {'value': value, 'comment': comment, 'distribution': '0'}
         attribute.update(self.passivedns_mapping[feature])
-        log.debug(attribute)
         return attribute
 
 
@@ -167,6 +157,8 @@ def handler(q=False):
         response = to_query(client, *args)
     except dnsdb2.DnsdbException as e:
         return {'error': e.__str__()}
+    except dnsdb2.exceptions.QueryError:
+        return {'error': 'Communication error occurs while executing a query, or the server reports an error due to invalid arguments.'}
     if not response:
         return {'error': f"Empty results on Farsight DNSDB for the {TYPE_TO_FEATURE[attribute['type']]}: {attribute['value']}."}
     parser = FarsightDnsdbParser(attribute)
@@ -230,31 +222,24 @@ def lookup_name(client, lookup_args, name, flex):
         response['rdata'] = rdata_response
     if flex:
         response.update(flex_queries(client, lookup_args, name))
-    log.debug(response)
     return response
 
 
 def lookup_ip(client, lookup_args, ip, flex):
     response = {}
     res = list(client.lookup_rdata_ip(ip, **lookup_args))
-    log.debug(res)
     if res:
         response['rdata'] = res
     if flex:
         response.update(flex_queries(client, lookup_args, ip))
-    log.debug(res)
     return response
 
 
 def introspection():
-    log.debug("Archith33")
-#     log.debug(passivedns_object.distribution)
-    
-    log.debug("ArchithS")
+    log.debug("A")
     return mispattributes
 
 
 def version():
     moduleinfo['config'] = moduleconfig
-    log.debug("Archith11")
     return moduleinfo
