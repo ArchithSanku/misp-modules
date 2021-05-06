@@ -6,7 +6,7 @@ from datetime import datetime
 from pymisp import MISPEvent, MISPObject
 
 logging.basicConfig(filename = "/home/ubuntu/debug.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('sampleerror')
+log = logging.getLogger('TestFolder')
 log.setLevel(logging.DEBUG)
 log.debug("Started Debugging...")
 
@@ -110,7 +110,8 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                log.debug("CCC")
+                log.debug("QQQ")
+                log.debug(passivedns_object)
                 passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -126,6 +127,8 @@ class FarsightDnsdbParser():
 
     def get_results(self):
         event = json.loads(self.misp_event.to_json())
+        log.debug(event)
+        log.debug('SAM')
         results = {key: event[key] for key in ('Attribute', 'Object')}
         return {'results': results}
 
