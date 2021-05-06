@@ -5,8 +5,8 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject
 
-logging.basicConfig(filename = "random.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('sampleerrors')
+logging.basicConfig(filename = "arc.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
 log.debug("This is sample")
 
@@ -104,6 +104,7 @@ class FarsightDnsdbParser():
             'zone_time_last': {'type': 'datetime', 'object_relation': 'zone_time_last'}
         }
         self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
+        log.debug("Archith4")
 
     def parse_passivedns_results(self, query_response):
         for query_type, results in query_response.items():
@@ -111,6 +112,8 @@ class FarsightDnsdbParser():
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
                 passivedns_object.distribution = '0'
+                log.debug("Archith5")
+                log.debug(passivedns_object)
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
@@ -133,6 +136,7 @@ class FarsightDnsdbParser():
     def _parse_attribute(self, comment, feature, value):
         attribute = {'value': value, 'comment': comment, 'distribution': '0'}
         attribute.update(self.passivedns_mapping[feature])
+        log.debug("Archith1")
         return attribute
 
 
@@ -184,6 +188,7 @@ def parse_input(attribute, config):
 
 def parse_timestamp(str_date):
     datetime_date = datetime.strptime(str_date, '%Y-%m-%dT%H:%M:%S.%f%z')
+    log.debug("Archith2")
     return str(int(datetime_date.timestamp()))
 
 
@@ -235,6 +240,7 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
+    log.debug("Archith3")
     return mispattributes
 
 
