@@ -111,7 +111,7 @@ class FarsightDnsdbParser():
         log.debug(str(event))
         log.debug('text')
         log.debug(event['uuid'])
-#         event_details = self.get_event(event['uuid'])
+        #event_details = self.get_event(event['uuid'])
         log.debug.self(event_details)
         
         for query_type, results in query_response.items():
@@ -251,7 +251,7 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
-    log.debug('BB')
+    log.debug('HH')
     log.debug(mispattributes)
     return mispattributes
 
