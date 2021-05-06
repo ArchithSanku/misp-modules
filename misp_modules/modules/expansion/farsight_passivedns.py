@@ -110,8 +110,7 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                log.debug('AAA')
-                print('Hello')
+                log.debug('CCC')
                 passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -122,9 +121,7 @@ class FarsightDnsdbParser():
                     passivedns_object.first_seen = result['time_first']
                 if result.get('time_last'):
                     passivedns_object.last_seen = result['time_last']
-                passivedns_object.add_reference(self.attribute['uuid'], 'related-to')
-                print('World')
-                log.debug(passivedns_object.add_reference(self.attribute['uuid']))
+                passivedns_object.add_reference(self.attribute['uuid'], 'related-to')                              
                 self.misp_event.add_object(passivedns_object)
 
     def get_results(self):
@@ -142,7 +139,7 @@ def handler(q=False):
     if q is False:
         return False
     request = json.loads(q)
-    log.debug(request)
+#     log.debug(request)
     if not request.get('config') or not request['config'].get('apikey'):
         misperrors['error'] = 'Farsight DNSDB apikey is missing'
         return misperrors
@@ -166,6 +163,7 @@ def handler(q=False):
     if not response:
         return {'error': f"Empty results on Farsight DNSDB for the {TYPE_TO_FEATURE[attribute['type']]}: {attribute['value']}."}
     parser = FarsightDnsdbParser(attribute)
+    log.debug(parser)
     parser.parse_passivedns_results(response)
     return parser.get_results()
 
@@ -240,7 +238,7 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
-    log.debug("A")
+    log.debug("B")
     return mispattributes
 
 
