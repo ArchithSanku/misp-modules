@@ -4,9 +4,10 @@ import logging
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject
+from keys import misp_url, misp_key, misp_verifycert 
 
 logging.basicConfig(filename = "/home/ubuntu/debug.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('TestFolder')
+log = logging.getLogger('Testtfolders')
 log.setLevel(logging.DEBUG)
 log.debug("Started Debugging...")
 
@@ -111,6 +112,11 @@ class FarsightDnsdbParser():
         log.debug(str(event))
         log.debug('text')
         log.debug(event['uuid'])
+        
+        misp = PyMISP(misp_url, misp_key, misp_verifycert)
+        event_d = misp.get(event_id)
+        log.debug(event_d)
+        
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
