@@ -111,9 +111,6 @@ class FarsightDnsdbParser():
         log.debug(str(event))
         log.debug('text')
         log.debug(event['uuid'])
-        #event_details = self.get_event(event['uuid'])
-        log.debug.self(event_details)
-        
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
