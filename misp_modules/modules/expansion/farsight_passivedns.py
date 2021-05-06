@@ -103,12 +103,14 @@ class FarsightDnsdbParser():
             'zone_time_first': {'type': 'datetime', 'object_relation': 'zone_time_first'},
             'zone_time_last': {'type': 'datetime', 'object_relation': 'zone_time_last'}
         }
-        self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
         log.debug("Archith4")
+        self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
+        
 
     def parse_passivedns_results(self, query_response):
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
+            log.debug("Archith400")
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
                 passivedns_object.distribution = '0'
@@ -131,6 +133,7 @@ class FarsightDnsdbParser():
         log.debug("Archith")
         log.debug(event)
         results = {key: event[key] for key in ('Attribute', 'Object')}
+        log.debug(event)
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
@@ -246,4 +249,5 @@ def introspection():
 
 def version():
     moduleinfo['config'] = moduleconfig
+    log.debug("Archith11")
     return moduleinfo
