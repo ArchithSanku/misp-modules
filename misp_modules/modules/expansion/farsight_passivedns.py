@@ -7,7 +7,7 @@ from pymisp import MISPEvent, MISPObject, PyMISP
 
 
 logging.basicConfig(filename = "/home/ubuntu/debug.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('Testtfolders')
+log = logging.getLogger('Testtt')
 log.setLevel(logging.DEBUG)
 log.debug("Started Debugging...")
 
@@ -121,8 +121,6 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                log.debug("QQQ")
-                log.debug(passivedns_object)
                 passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -138,8 +136,6 @@ class FarsightDnsdbParser():
 
     def get_results(self):
         event = json.loads(self.misp_event.to_json())
-        log.debug(event)
-        log.debug('SAM')
         results = {key: event[key] for key in ('Attribute', 'Object')}
         return {'results': results}
 
@@ -153,9 +149,6 @@ def handler(q=False):
     if q is False:
         return False
     request = json.loads(q)
-    log.debug("#############################################################")
-    log.debug(request)
-    log.debug("#############################################################")
     if not request.get('config') or not request['config'].get('apikey'):
         misperrors['error'] = 'Farsight DNSDB apikey is missing'
         return misperrors
@@ -179,7 +172,6 @@ def handler(q=False):
     if not response:
         return {'error': f"Empty results on Farsight DNSDB for the {TYPE_TO_FEATURE[attribute['type']]}: {attribute['value']}."}
     parser = FarsightDnsdbParser(attribute)
-    log.debug(parser)
     parser.parse_passivedns_results(response)
     return parser.get_results()
 
@@ -254,13 +246,9 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
-    log.debug('HH')
-    log.debug(mispattributes)
     return mispattributes
 
 
 def version():
     moduleinfo['config'] = moduleconfig
-    log.debug('D')
-    log.debug(moduleinfo['config'])
     return moduleinfo
