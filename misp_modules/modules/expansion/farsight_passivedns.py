@@ -117,6 +117,7 @@ class FarsightDnsdbParser():
                 passivedns_object = MISPObject('passive-dns')
                 #passivedns_object.distribution = '0'
                 passivedns_object.distribution = dis
+                log.debug(passivedns_object.distribution)
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
@@ -133,6 +134,7 @@ class FarsightDnsdbParser():
         event = json.loads(self.misp_event.to_json())
         results = {key: event[key] for key in ('Attribute', 'Object')}
         log.debug(results)
+        log.debug(get_results.event)
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
@@ -242,6 +244,7 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 def introspection():
     log.debug("Archith3")
+    log.debug(event)
     log.debug("ArchithS")
     return mispattributes
 
