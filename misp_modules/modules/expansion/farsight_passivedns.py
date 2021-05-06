@@ -2,6 +2,7 @@ import dnsdb2
 import json
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
+import logging
 from pymisp import MISPEvent, MISPObject
 
 misp_url = 'https://18.116.32.112/'
