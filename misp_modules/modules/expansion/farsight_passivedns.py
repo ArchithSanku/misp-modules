@@ -13,6 +13,8 @@ log.debug("Testing")
 
 
 misperrors = {'error': 'Error'}
+Farsight_Shared_Group = "88a55e33-9d40-4af0-8985-d91863d42b4b"
+fs_distribution = '0' 
 standard_query_input = [
     'hostname',
     'domain',
@@ -112,7 +114,8 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                passivedns_object.distribution = '0'
+                #passivedns_object.distribution = '0'
+                passivedns_object.distribution = dis
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
@@ -132,9 +135,9 @@ class FarsightDnsdbParser():
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
-        attribute = {'value': value, 'comment': comment, 'distribution': '0'}
+        attribute = {'value': value, 'comment': comment, 'distribution': fs_distribution}
         attribute.update(self.passivedns_mapping[feature])
-        log.debug("Archith1")
+        log.debug(attribute)
         return attribute
 
 
