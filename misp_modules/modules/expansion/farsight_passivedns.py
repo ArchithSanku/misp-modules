@@ -111,8 +111,8 @@ class FarsightDnsdbParser():
         log.debug(str(event))
         log.debug('text')
         log.debug(event['uuid'])
-        event_details = self.get_event(event['uuid'])
-        log.debug(event_details)
+#         event_details = self.get_event(event['uuid'])
+        log.debug.self(event_details)
         
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
@@ -150,7 +150,9 @@ def handler(q=False):
     if q is False:
         return False
     request = json.loads(q)
-#     log.debug(request)
+    log.debug("#############################################################")
+    log.debug(request)
+    log.debug("#############################################################")
     if not request.get('config') or not request['config'].get('apikey'):
         misperrors['error'] = 'Farsight DNSDB apikey is missing'
         return misperrors
