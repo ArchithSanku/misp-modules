@@ -8,7 +8,7 @@ from pymisp import MISPEvent, MISPObject
 logging.basicConfig(filename = "/home/ubuntu/sam2.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('sampleerror')
 log.setLevel(logging.DEBUG)
-log.debug("Started Debugging!!")
+log.debug("Started Debugging!!!")
 
 
 misperrors = {'error': 'Error'}
@@ -111,6 +111,7 @@ class FarsightDnsdbParser():
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
                 log.debug('AAA')
+                print('Hello')
                 passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -122,6 +123,8 @@ class FarsightDnsdbParser():
                 if result.get('time_last'):
                     passivedns_object.last_seen = result['time_last']
                 passivedns_object.add_reference(self.attribute['uuid'], 'related-to')
+                print('World')
+                log.debug(passivedns_object.add_reference(self.attribute['uuid'])
                 self.misp_event.add_object(passivedns_object)
 
     def get_results(self):
@@ -139,6 +142,7 @@ def handler(q=False):
     if q is False:
         return False
     request = json.loads(q)
+    log.debug(request)
     if not request.get('config') or not request['config'].get('apikey'):
         misperrors['error'] = 'Farsight DNSDB apikey is missing'
         return misperrors
