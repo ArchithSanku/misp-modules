@@ -110,7 +110,7 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                log.debug('CCC')
+                log.debug("CCC")
                 passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -245,4 +245,6 @@ def introspection():
 
 def version():
     moduleinfo['config'] = moduleconfig
+    log.debug('D')
+    log.debug(moduleinfo['config'])
     return moduleinfo
