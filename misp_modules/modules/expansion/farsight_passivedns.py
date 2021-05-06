@@ -125,6 +125,7 @@ class FarsightDnsdbParser():
 
     def get_results(self):
         event = json.loads(self.misp_event.to_json())
+        log.debug("Archith")
         log.debug(event)
         results = {key: event[key] for key in ('Attribute', 'Object')}
         return {'results': results}
