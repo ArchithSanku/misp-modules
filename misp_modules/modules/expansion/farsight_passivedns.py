@@ -238,7 +238,7 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
-    log.debug('B')
+    log.debug('BB')
     log.debug(mispattributes)
     return mispattributes
 
