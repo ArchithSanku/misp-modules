@@ -119,8 +119,8 @@ class FarsightDnsdbParser():
         event_distribution = self.misp_event.distribution
         if event_distribution == '4':
            sharing_uuid = self.misp_event.SharingGroup.uuid
-                if sharing_uuid == Farsight_Shared_Group:
-                    fs_distribution = '5'
+        if sharing_uuid == Farsight_Shared_Group:
+            fs_distribution = '5'
         log.debug(event_id)
         #misp = PyMISP(misp_url, misp_key, misp_verifycert)
         #event_details = misp.get(event_id)
