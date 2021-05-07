@@ -115,7 +115,7 @@ class FarsightDnsdbParser():
     def parse_passivedns_results(self, query_response):
         event = json.loads(self.misp_event.to_json())
         event_id = event['uuid']
-        event_distribution = event['distribution']
+        #event_distribution = event['distribution']
         event_distribution = self.misp_event.distribution
         if event_distribution == '4':
            sharing_uuid = self.misp_event.SharingGroup.uuid
