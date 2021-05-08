@@ -6,7 +6,7 @@ from datetime import datetime
 from pymisp import MISPEvent, MISPObject, PyMISP
 
 misp_url = 'https://3.15.144.141/'
-misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR' # The MISP auth key can be found on the MISP web interface under the automation section
+misp_key = 'J6Sqwu8eWMFyGh5AKM4GIuj3LLas0L4LUJpPaNxh' # The MISP auth key can be found on the MISP web interface under the automation section
 misp_verifycert = False
 misp = PyMISP(misp_url, misp_key, misp_verifycert)
 
