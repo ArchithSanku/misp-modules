@@ -1,7 +1,12 @@
 import urllib3
 from pymisp import PyMISP, MISPEvent, MISPObject
-
+import logging
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+logging.basicConfig(filename = "/home/ubuntu/qwert.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+log = logging.getLogger('Testtt')
+log.setLevel(logging.DEBUG)
+log.debug("......DEBUG.......")
 
 
 misp_url = 'https://18.116.32.112'
@@ -10,7 +15,7 @@ misp_verifycert = False
 
 
 misp = PyMISP(misp_url, misp_key, misp_verifycert)
-
+log.debug("......DEBUG123.......")
 
 misp_evt = MISPEvent()
 misp_evt.distribution = 4  # sharing group
