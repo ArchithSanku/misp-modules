@@ -3,7 +3,7 @@ from pymisp import PyMISP, MISPEvent, MISPObject
 import logging
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-logging.basicConfig(filename = "/home/ubuntu/qwert.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+logging.basicConfig(filename = "/home/ubuntu/qqq.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('Testtt')
 log.setLevel(logging.DEBUG)
 log.debug("......DEBUG.......")
