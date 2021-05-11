@@ -1,22 +1,8 @@
 import dnsdb2
 import json
-import logging
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
-from pymisp import MISPEvent, MISPObject, PyMISP
-
-misp_url = 'https://3.15.144.141/'
-misp_key = 'J6Sqwu8eWMFyGh5AKM4GIuj3LLas0L4LUJpPaNxh' # The MISP auth key can be found on the MISP web interface under the automation section
-misp_verifycert = False
-misp = PyMISP(misp_url, misp_key, misp_verifycert)
-
-
-farsight_sharing_group = '88a55e33-9d40-4af0-8985-d91863d42b4b'
-logging.basicConfig(filename = "/home/ubuntu/final.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('TEST')
-log.setLevel(logging.DEBUG)
-log.debug("Started Debugging...")
-fs_distribution = '0' 
+from pymisp import MISPEvent, MISPObject
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
@@ -99,7 +85,7 @@ class FarsightDnsdbParser():
         self.misp_event = MISPEvent()
         self.misp_event.add_attribute(**attribute)
         self.passivedns_mapping = {
-            'bailiwick': {'type': 'text', 'object_relation': 'bailiwick'},
+            'bailiwick': {'type': 'domain', 'object_relation': 'bailiwick'},
             'count': {'type': 'counter', 'object_relation': 'count'},
             'raw_rdata': {'type': 'text', 'object_relation': 'raw_rdata'},
             'rdata': {'type': 'text', 'object_relation': 'rdata'},
@@ -113,23 +99,18 @@ class FarsightDnsdbParser():
         self.comment = 'Result from a %s lookup on DNSDB about the %s: %s'
 
     def parse_passivedns_results(self, query_response):
-        event = json.loads(self.misp_event.to_json())
-        event_id = event['uuid']
-        event_distribution = self.misp_event.distribution
-        if event_distribution == '4':
-           sharing_uuid = self.misp_event.SharingGroup.uuid
-        if sharing_uuid == Farsight_Shared_Group:
-            fs_distribution = '5'
-        log.debug(event_id)
-        log.debug(str(event_id))
-        misp = PyMISP(misp_url, misp_key, misp_verifycert)
-        event_details = misp.get(event_id)
-        log.debug(event_details)
         for query_type, results in query_response.items():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                passivedns_object.distribution = dis
+                #The below five distribution settings are available for events and attributes:
+                #0: Your organization only (default)
+                #1: This community only
+                #2: Connected communities
+                #3: All communities
+                #4: Inherit
+                #5: Sharing group
+                passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
@@ -148,7 +129,8 @@ class FarsightDnsdbParser():
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
-        attribute = {'value': value, 'comment': comment, 'distribution': fs_distribution}
+        #making attribute settings accordingly
+        attribute = {'value': value, 'comment': comment, 'distribution': '0'}
         attribute.update(self.passivedns_mapping[feature])
         return attribute
 
@@ -175,6 +157,8 @@ def handler(q=False):
         response = to_query(client, *args)
     except dnsdb2.DnsdbException as e:
         return {'error': e.__str__()}
+    except dnsdb2.exceptions.QueryError:
+        return {'error': 'Communication error occurs while executing a query, or the server reports an error due to invalid arguments.'}
     if not response:
         return {'error': f"Empty results on Farsight DNSDB for the {TYPE_TO_FEATURE[attribute['type']]}: {attribute['value']}."}
     parser = FarsightDnsdbParser(attribute)
