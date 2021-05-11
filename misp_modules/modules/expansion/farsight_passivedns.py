@@ -5,8 +5,10 @@ import sys
 import urllib3
 # import urllib3pip
 from pymisp import PyMISP, MISPEvent, MISPObject
-from keys import misp_url, misp_key, misp_verifycert
-
+# from keys import misp_url, misp_key, misp_verifycert
+misp_url = 'https://18.116.32.112'
+misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
+misp_verifycert = False
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
