@@ -7,19 +7,20 @@ import urllib3
 from pymisp import PyMISP, MISPEvent, MISPObject
 # from keys import misp_url, misp_key, misp_verifycert
 
-misp_url = 'https://18.116.32.112'
+misp_url = 'https://18.116.32.112/'
 misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
 misp_verifycert = False
 
 logging.basicConfig(filename = "/home/ubuntu/xyz.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 log = logging.getLogger('xyz')
 log.setLevel(logging.DEBUG)
+misp = PyMISP(misp_url, misp_key, misp_verifycert)
 log.debug("Am Reay!!")
 
 # urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-misp = PyMISP(misp_url, misp_key, misp_verifycert)
+# misp = PyMISP(misp_url, misp_key, misp_verifycert)
 log.debug("Skipped!")
 # if not misp:
 #     print('PyMISP() failed\n', file=sys.stderr)
