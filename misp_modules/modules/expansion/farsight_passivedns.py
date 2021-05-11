@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-
+import logging
 import urllib3
 # import urllib3pip
 from pymisp import PyMISP, MISPEvent, MISPObject
@@ -10,6 +10,12 @@ misp_url = 'https://18.116.32.112'
 misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
 misp_verifycert = False
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+logging.basicConfig(filename = "/home/ubuntu/xyz.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+log = logging.getLogger('xyz')
+log.setLevel(logging.DEBUG)
+log.debug("Ready!!")
 
 
 misp = PyMISP(misp_url, misp_key, misp_verifycert)
