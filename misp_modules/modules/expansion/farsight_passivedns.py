@@ -103,13 +103,6 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                #The below five distribution settings are available for events and attributes:
-                #0: Your organization only (default)
-                #1: This community only
-                #2: Connected communities
-                #3: All communities
-                #4: Inherit
-                #5: Sharing group
                 passivedns_object.distribution = '0'
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
@@ -129,8 +122,7 @@ class FarsightDnsdbParser():
         return {'results': results}
 
     def _parse_attribute(self, comment, feature, value):
-        #making attribute settings accordingly
-        attribute = {'value': value, 'comment': comment, 'distribution': '0'}
+        attribute = {'value': value, 'comment': comment, 'distribution': 0}
         attribute.update(self.passivedns_mapping[feature])
         return attribute
 
