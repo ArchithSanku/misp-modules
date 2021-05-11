@@ -2,7 +2,23 @@ import dnsdb2
 import json
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
-from pymisp import MISPEvent, MISPObject
+import logging
+import sys
+import urllib3
+from pymisp import MISPEvent, MISPObject, PyMISP
+
+logging.basicConfig(filename = "/home/ubuntu/qwert.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+log = logging.getLogger('TESTING')
+log.setLevel(logging.DEBUG)
+
+misp_url = 'https://18.116.32.112'
+misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
+misp_verifycert = False
+misp = PyMISP(misp_url, misp_key, misp_verifycert)
+log.debug(misp)
+if not misp:
+    print('PyMISP() failed\n', file=sys.stderr)
+    sys.exit(1)
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
