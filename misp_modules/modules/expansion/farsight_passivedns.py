@@ -9,9 +9,9 @@ log.setLevel(logging.DEBUG)
 log.debug("......DEBUG.......")
 
 
-misp_url = 'https://18.116.32.112'
-# misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
-misp_key = 'O6DZx04xqvZmJFPaeetj3U9kkN1JIVxFyUBrUUx4'
+misp_url = 'https://172.31.22.195'
+misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
+# misp_key = 'O6DZx04xqvZmJFPaeetj3U9kkN1JIVxFyUBrUUx4'
 misp_verifycert = False
 
 
