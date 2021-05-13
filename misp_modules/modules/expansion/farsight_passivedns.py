@@ -119,7 +119,6 @@ class FarsightDnsdbParser():
                 passivedns_object.distribution = Distribution.your_organisation_only.value
                 
                 event = json.loads(self.misp_event.to_json())
-                log.debug("1")
                 log.debug(event)
                 event_id = event['uuid']
 #                 event_distribution = Distribution.inherit.value
