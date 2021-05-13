@@ -56,7 +56,7 @@ moduleconfig = ['apikey', 'server', 'limit', 'flex_queries']
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
 DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
-# Farsight_Shared_Group = ''
+Farsight_Shared_Group = '88a55e33-9d40-4af0-8985-d91863d42b4b'
 TYPE_TO_FEATURE = {
     "btc": "Bitcoin address",
     "dkim": "domainkeys identified mail",
@@ -116,13 +116,16 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                passivedns_object.distribution = DEFAULT_DISTRIBUTION_SETTING
+                passivedns_object.distribution = Distribution.your_organisation_only.value
                 
-#                 event_distribution = self.misp_event.distribution
-#                 if event_distribution == "4":
-#                     sharing_uuid = self.misp_event.SharingGroup.uuid
-#                 if sharing_uuid == Farsight_Shared_Group:
-#                     fs_distribution = '5'
+                if DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
+                    event_distribution = self.misp_event.distribution
+                if event_distribution == Distribution.inherit.value :
+                    sharing_uuid = self.misp_event.SharingGroup.uuid
+                if sharing_uuid == Farsight_Shared_Group:
+                    fs_distribution = Distribution.sharing_group
+                log.debug(str(sharing_uuid))
+                log.debug(str(Farsight_Shared_Group))
                 
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
