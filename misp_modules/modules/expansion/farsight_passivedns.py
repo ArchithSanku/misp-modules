@@ -122,7 +122,8 @@ class FarsightDnsdbParser():
                 log.debug("1")
                 log.debug(event)
                 event_id = event['uuid']
-                event_distribution = self.misp_event.distribution
+                event_distribution = Distribution.inherit.value
+#                 event_distribution = self.misp_event.distribution
                 if event_distribution == Distribution.inherit.value:
                     sharing_uuid = self.misp_event.SharingGroup.uuid
                 if sharing_uuid == Farsight_Shared_Group:
