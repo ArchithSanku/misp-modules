@@ -118,7 +118,7 @@ class FarsightDnsdbParser():
                 passivedns_object = MISPObject('passive-dns')
                 passivedns_object.distribution = Distribution.your_organisation_only.value
                 
-                if DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
+                if DEFAULT_DISTRIBUTION_SETTING == Distribution.your_organisation_only.value
                     event_distribution = self.misp_event.distribution
                 if event_distribution == Distribution.inherit.value :
                     sharing_uuid = self.misp_event.SharingGroup.uuid
