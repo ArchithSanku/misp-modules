@@ -2,7 +2,7 @@ import dnsdb2
 import json
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
-from pymisp import MISPEvent, MISPObject, Distribution
+from pymisp import MISPEvent, MISPObject, Distribution, PyMISP
 import logging
 
 logging.basicConfig(filename = "/home/ubuntu/new.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
