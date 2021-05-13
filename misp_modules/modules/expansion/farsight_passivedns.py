@@ -121,7 +121,7 @@ class FarsightDnsdbParser():
                 event = json.loads(self.misp_event.to_json())
                 log.debug("1")
                 log.debug(event)
-#                 event_id = event['uuid']
+                event_id = event['uuid']
                 event_distribution = self.misp_event.distribution
                 log.debug(event_distribution)
                 if event_distribution == Distribution.inherit.value:
