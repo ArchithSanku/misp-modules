@@ -2,7 +2,7 @@ import dnsdb2
 import json
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
-from pymisp import MISPEvent, MISPObject
+from pymisp import MISPEvent, MISPObject, Distribution
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
