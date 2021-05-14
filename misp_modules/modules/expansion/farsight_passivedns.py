@@ -2,19 +2,7 @@ import dnsdb2
 import json
 from . import check_input_attribute, standard_error_message
 from datetime import datetime
-from pymisp import MISPEvent, MISPObject, Distribution, PyMISP
-import logging
-
-logging.basicConfig(filename = "/home/ubuntu/new.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-log = logging.getLogger('NEW')
-log.setLevel(logging.DEBUG)
-log.debug("Ready!!")
-
-misp_url = 'https://172.31.22.195'
-misp_key = 'uU7TIbeQlAquNHkMfcZyFAkZHoY3hi0mexahbzcR'
-misp_verifycert = False
-misp = PyMISP(misp_url, misp_key, misp_verifycert)
-log.debug("Passed!!")
+from pymisp import MISPEvent, MISPObject
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
@@ -56,7 +44,7 @@ moduleconfig = ['apikey', 'server', 'limit', 'flex_queries']
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
 DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
-Farsight_Shared_Group = '88a55e33-9d40-4af0-8985-d91863d42b4b'
+
 TYPE_TO_FEATURE = {
     "btc": "Bitcoin address",
     "dkim": "domainkeys identified mail",
@@ -116,30 +104,7 @@ class FarsightDnsdbParser():
             comment = self.comment % (query_type, TYPE_TO_FEATURE[self.attribute['type']], self.attribute['value'])
             for result in results:
                 passivedns_object = MISPObject('passive-dns')
-                passivedns_object.distribution = Distribution.your_organisation_only.value
-                
-                event = json.loads(self.misp_event.to_json())
-                log.debug(event)
-                event_id = event['uuid']
-#                 event_distribution = Distribution.inherit.value
-#                 event_distribution = self.misp_event.distribution
-                event.distribution = Distribution.inherit.value
-                if event.distribution == Distribution.inherit.value:
-#                 if event_distribution == Distribution.inherit.value:
-                    sharing_uuid = self.misp_event.SharingGroup.uuid
-                if sharing_uuid == Farsight_Shared_Group:
-                    DEFAULT_DISTRIBUTION_SETTING = Distribution.sharing_group.value
-                event_details = misp.get(event_id)
-                log.debug(event_details)             
-                                                
-#                 event_distribution = self.misp_event.distribution
-#                 if event_distribution == Distribution.inherit.value :
-#                     sharing_uuid = self.misp_event.SharingGroup.uuid
-#                 if sharing_uuid == Farsight_Shared_Group:
-#                     fs_distribution = Distribution.sharing_group
-#                 log.debug(str(sharing_uuid))
-#                 log.debug(str(Farsight_Shared_Group))
-                
+                passivedns_object.distribution = DEFAULT_DISTRIBUTION_SETTING
                 if result.get('rdata') and isinstance(result['rdata'], list):
                     for rdata in result.pop('rdata'):
                         passivedns_object.add_attribute(**self._parse_attribute(comment, 'rdata', rdata))
