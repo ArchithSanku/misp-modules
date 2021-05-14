@@ -4,6 +4,7 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject, Distribution
 
+
 misperrors = {'error': 'Error'}
 standard_query_input = [
     'hostname',
@@ -44,7 +45,6 @@ moduleconfig = ['apikey', 'server', 'limit', 'flex_queries']
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
 DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
-
 TYPE_TO_FEATURE = {
     "btc": "Bitcoin address",
     "dkim": "domainkeys identified mail",
