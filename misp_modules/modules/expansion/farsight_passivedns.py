@@ -4,34 +4,6 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject, Distribution
 
-# logging.basicConfig(filename = "/home/ubuntu/new.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-# log = logging.getLogger('NEW')
-# log.setLevel(logging.DEBUG)
-# log.debug("Ready!!")
-
-# misp_url = 'https://3.133.91.139/'
-# misp_key = 'IJEUl4nlhu1oS4VWPBwZ2wGRNBbIFuZRwVptOvZn'
-# misp_verifycert = False
-# misp = PyMISP(misp_url, misp_key, misp_verifycert)
-# log.debug("Passed!!")
-
-
-# misp = ExpandedPyMISP(misp_url, misp_key, misp_verifycert)
-
-
-# misp_evt = MISPEvent()
-# misp_evt.distribution = 4  # sharing group
-# misp_evt.published = False
-# misp_evt.sharing_group_id = 1  # depends on your instance
-# misp_evt.info = 'DONEEE SSSS'
-# response = misp.add_event(misp_evt, pythonify=True)
-# misp_evt = response
-# misp_obj = MISPObject(name='blog', strict=True)  # standard template
-# misp_obj.add_attribute('post', value='some l33t text')
-# response = misp.add_object(misp_evt.id, misp_obj, pythonify=True)
-# misp_obj = response
-
-
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
@@ -68,7 +40,7 @@ moduleinfo = {
     'description': 'Module to access Farsight DNSDB Passive DNS',
     'module-type': ['expansion', 'hover']
 }
-moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username', 'password']
+moduleconfig = ['apikey', 'server', 'limit', 'flex_queries']
 
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
@@ -165,11 +137,6 @@ def handler(q=False):
         return misperrors
     if not request.get('attribute') or not check_input_attribute(request['attribute']):
         return {'error': f'{standard_error_message}, which should contain at least a type, a value and an uuid.'}
-    
-    #Added Username and password fields for testing
-    if not request['config'].get('username') or not request['config'].get('password'):
-        return {'error': 'Farsigt_Passivedns authentication is incomplete, please provide your username and password.'}
-    
     attribute = request['attribute']
     if attribute['type'] not in mispattributes['input']:
         return {'error': 'Unsupported attributes type'}
