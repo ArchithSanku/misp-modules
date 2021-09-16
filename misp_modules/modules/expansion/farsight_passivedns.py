@@ -4,6 +4,13 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject, Distribution
 
+misp_url = 'https://3.133.91.139/'
+misp_key = 'IJEUl4nlhu1oS4VWPBwZ2wGRNBbIFuZRwVptOvZn'
+# The MISP auth key can be found on the MISP web interface
+# under the automation section
+misp_verifycert = False
+
+misp = ExpandedPyMISP(misp_url, misp_key, misp_verifycert)
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
