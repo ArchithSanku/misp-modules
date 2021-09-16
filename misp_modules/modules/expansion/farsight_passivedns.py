@@ -4,6 +4,20 @@ from . import check_input_attribute, standard_error_message
 from datetime import datetime
 from pymisp import MISPEvent, MISPObject, Distribution
 
+logging.basicConfig(filename = "/home/ubuntu/new.txt", filemode = 'a', format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
+log = logging.getLogger('NEW')
+log.setLevel(logging.DEBUG)
+log.debug("Ready!!")
+
+misp_url = 'https://3.133.91.139/'
+misp_key = 'IJEUl4nlhu1oS4VWPBwZ2wGRNBbIFuZRwVptOvZn'
+misp_verifycert = False
+misp = PyMISP(misp_url, misp_key, misp_verifycert)
+log.debug("Passed!!")
+
+
+
+
 misp_url = 'https://3.133.91.139/'
 misp_key = 'IJEUl4nlhu1oS4VWPBwZ2wGRNBbIFuZRwVptOvZn'
 # The MISP auth key can be found on the MISP web interface
@@ -11,6 +25,21 @@ misp_key = 'IJEUl4nlhu1oS4VWPBwZ2wGRNBbIFuZRwVptOvZn'
 misp_verifycert = False
 
 misp = ExpandedPyMISP(misp_url, misp_key, misp_verifycert)
+
+
+misp_evt = MISPEvent()
+misp_evt.distribution = 4  # sharing group
+misp_evt.published = False
+misp_evt.sharing_group_id = 1  # depends on your instance
+misp_evt.info = 'DONEEE SSSS'
+response = misp.add_event(misp_evt, pythonify=True)
+misp_evt = response
+misp_obj = MISPObject(name='blog', strict=True)  # standard template
+misp_obj.add_attribute('post', value='some l33t text')
+response = misp.add_object(misp_evt.id, misp_obj, pythonify=True)
+misp_obj = response
+
+
 
 misperrors = {'error': 'Error'}
 standard_query_input = [
