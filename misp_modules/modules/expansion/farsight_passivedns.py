@@ -40,7 +40,7 @@ moduleinfo = {
     'description': 'Module to access Farsight DNSDB Passive DNS',
     'module-type': ['expansion', 'hover']
 }
-moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'name']
+moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username', 'password']
 
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
@@ -137,6 +137,11 @@ def handler(q=False):
         return misperrors
     if not request.get('attribute') or not check_input_attribute(request['attribute']):
         return {'error': f'{standard_error_message}, which should contain at least a type, a value and an uuid.'}
+    
+    #Added Username and password fields for testing
+    if not request['config'].get('username') or not request['config'].get('password'):
+        return {'error': 'Farsigt_Passivedns authentication is incomplete, please provide your username and password.'}
+    
     attribute = request['attribute']
     if attribute['type'] not in mispattributes['input']:
         return {'error': 'Unsupported attributes type'}
