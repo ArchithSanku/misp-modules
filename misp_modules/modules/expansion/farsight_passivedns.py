@@ -39,6 +39,15 @@ moduleinfo = {
     'description': 'Module to access Farsight DNSDB Passive DNS',
     'module-type': ['expansion', 'hover']
 }
+
+userConfig = {
+  "Test": {
+    "type": "Select",
+    "message": "Description",
+    "options": ["A", "B", "C"]
+  }
+}
+
 moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username', 'dropdown']
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
@@ -235,6 +244,11 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
+    try:
+        userConfig
+        modulesetup['userConfig'] = userConfig
+    except NameError:
+        pass
     return mispattributes
 
 
