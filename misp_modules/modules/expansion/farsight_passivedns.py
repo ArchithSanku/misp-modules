@@ -41,7 +41,7 @@ moduleinfo = {
 }
 
 userConfig = {
-  "Test": {
+  "dropdown": {
     "type": "Select",
     "message": "Description",
     "options": ["A", "B", "C"]
