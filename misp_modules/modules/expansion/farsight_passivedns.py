@@ -144,6 +144,9 @@ def handler(q=False):
     if not request['config'].get('username'):
         return {'error': 'Farsight Passive DNS authentication is incomplete, please provide your username and password.'}
     
+    if not config.get('username'):
+        config['username'] = 'Helloworld'
+    
     if not config.get('server'):
         config['server'] = DEFAULT_DNSDB_SERVER
     client_args = {feature: config[feature] for feature in ('apikey', 'server')}
