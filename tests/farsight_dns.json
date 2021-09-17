@@ -1,1 +1,1 @@
-{"module": "farsight_passivedns", "ip-src": "149.13.33.14", "config": {"apikey": "xyz","server": "abc","limit": "10","flex_queries": "vvv","username": "auser"} }
+{"module": "farsight_passivedns", "ip-src": "149.13.33.14", "config": {"apikey": "xyz","server": "abc","limit": "10","flex_queries": "vvv","username": "auser",'test': {"type": "Select","message": "Description","options": ["A", "B", "C"]}}
