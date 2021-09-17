@@ -39,7 +39,11 @@ moduleinfo = {
     'description': 'Module to access Farsight DNSDB Passive DNS',
     'module-type': ['expansion', 'hover']
 }
-moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username', 'dropdown']
+moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username',  'dropdown': {
+    "type": "Select",
+    "message": "Description",
+    "options": ["A", "B", "C"]
+  }]
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
 DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
@@ -141,8 +145,8 @@ def handler(q=False):
     config = request['config']
     if not request['config'].get('username'):
         misperrors['error'] = 'Farsight Passive DNS authentication is incomplete, please provide your username and password.'
-        return misperrors  
-     if not request['config'].get('dropdown'):
+        return misperrors
+    if not request['config'].get('dropdown'):
         misperrors['error'] = 'Error dropdown'
         return misperrors
     if not config.get('username'):
