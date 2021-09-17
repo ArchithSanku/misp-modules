@@ -39,8 +39,8 @@ moduleinfo = {
     'description': 'Module to access Farsight DNSDB Passive DNS',
     'module-type': ['expansion', 'hover']
 }
-moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username', 'dropdown': {'type': 'Select','message': 'Description','options': ['A', 'B', 'C']}]
-
+moduleconfig = ['apikey', 'server', 'limit', 'flex_queries', 'username', 'dropdown']
+moduleconfig['dropdown'] = {'type': 'Select','message': 'Description','options': ['A', 'B', 'C']}
 DEFAULT_DNSDB_SERVER = 'https://api.dnsdb.info'
 DEFAULT_LIMIT = 10
 DEFAULT_DISTRIBUTION_SETTING = Distribution.your_organisation_only.value
