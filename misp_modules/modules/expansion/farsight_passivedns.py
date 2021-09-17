@@ -142,7 +142,6 @@ def handler(q=False):
     attribute = request['attribute']
     if attribute['type'] not in mispattributes['input']:
         return {'error': 'Unsupported attributes type'}
-    config = request['config']
     if not request['config'].get('username'):
         misperrors['error'] = 'Farsight Passive DNS authentication is incomplete, please provide your username and password.'
         return misperrors
@@ -151,6 +150,7 @@ def handler(q=False):
         return misperrors
     if not config.get('username'):
         config['username'] = 'Helloworld'
+    config = request['config']
     if not config.get('server'):
         config['server'] = DEFAULT_DNSDB_SERVER
     client_args = {feature: config[feature] for feature in ('apikey', 'server')}
