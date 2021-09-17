@@ -244,11 +244,13 @@ def lookup_ip(client, lookup_args, ip, flex):
 
 
 def introspection():
+    modulesetup = {}
     try:
         userConfig
         modulesetup['userConfig'] = userConfig
     except NameError:
         pass
+    return modulesetup
     return mispattributes
 
 
