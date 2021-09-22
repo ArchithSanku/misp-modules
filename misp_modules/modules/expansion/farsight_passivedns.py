@@ -44,7 +44,7 @@ userConfig = {
   "dropdown": {
     "type": "Select",
     "message": "Description",
-    "options": ["A", "B", "C"]
+    "options": ["A", "B", "C", "D"]
   }
 }
 
